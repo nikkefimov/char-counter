@@ -38,4 +38,42 @@ app.post('/count', (req: Request, res: Response) => {
     });
 
     // counting logic
-    function processText
+    function processText(inputText: string) {
+        // split text into words
+        // split by whitespace and filter empty strings
+        const symbols = inputText.split(/\s+/).filter(Boolean);
+
+        let stringsCount = 0;
+        let intsCount = 0;
+        let floatsCount = 0;
+
+        // categorize each symbol in array
+        symbols.forEach((symbol) => {
+            if (isFloat(symbol)) {
+                floatsCount++;
+            } else if (isInt(symbol)) {
+                intsCount++;
+            } else {
+                stringsCount++;
+            }
+        });
+
+        const totalCount = stringsCount + intsCount + floatsCount;
+
+        return { stringsCount, intsCount, floatsCount, totalCount};
+    }
+
+    // check if a symbol is a valid integer
+    function isInt(symbol: string): boolean {
+        return /^-?\d+$/.test(symbol);
+    }
+    
+    // check if a symbol is a valid float
+    function isFloat(symbol: string): boolean {
+        return /^-?\d+\.\d+$/.test(symbol);
+    }
+
+    // start server
+    app.listen(port, () => {
+        console.log(`Server is running on http://localhost:${port}`);
+    });
