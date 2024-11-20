@@ -16,7 +16,7 @@ app.use(bodyParser. json());
 app.post('/count', (req: Request, res: Response) => {
     const inputText = req.body.inputText;
 
-    // process the text to create an array with strings, ints, floats
+    // process the text to create an array with strings, ints and floats
     const result = processText(inputText);
 
     // respond with the count and the result
